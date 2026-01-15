@@ -49,15 +49,17 @@ export default function Model3D() {
       onCreated={({ invalidate }) => invalidate()}
       dpr={[1, 1.5]}
       gl={{ powerPreference: 'high-performance' }}
-      style={{ width: '100%', height: '100vh' }}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: 1,
+      }}
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 10, 5]} intensity={1} />
 
       <Suspense fallback={<LoadingPlaceholder />}>
-        <group ref={modelRef}>
-          <Model />
-        </group>
+        <Model ref={modelRef} />
         <FitCamera targetRef={modelRef} />
       </Suspense>
 

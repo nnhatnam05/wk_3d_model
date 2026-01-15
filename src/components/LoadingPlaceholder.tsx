@@ -4,6 +4,7 @@ export default function LoadingPlaceholder() {
       style={{
         position: 'absolute',
         inset: 0,
+        zIndex: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
