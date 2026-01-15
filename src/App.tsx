@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import './App.css'
+import LoadingPlaceholder from './components/LoadingPlaceholder'
 
 const Model3D = lazy(() => import('./components/Model3D'))
 
@@ -20,10 +21,12 @@ function App() {
   return (
     <div className="landing-page">
       {isDesktop && show3D ? (
-        <Suspense fallback={null}>
+        <Suspense fallback={<LoadingPlaceholder />}>
           <Model3D />
         </Suspense>
-      ) : null}
+      ) : (
+        <LoadingPlaceholder />
+      )}
     </div>
   )
 }

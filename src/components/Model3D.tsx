@@ -3,6 +3,7 @@ import { Suspense, useEffect, useRef, type RefObject } from 'react'
 import * as THREE from 'three'
 import { Model } from './Model'
 import { FitCamera } from './FitCamera'
+import LoadingPlaceholder from './LoadingPlaceholder'
 
 function MouseFollowRotation({ target }: { target: RefObject<THREE.Group | null> }) {
   const { invalidate } = useThree()
@@ -53,24 +54,7 @@ export default function Model3D() {
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 10, 5]} intensity={1} />
 
-      <Suspense
-        fallback={
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#aaa',
-              fontSize: '18px',
-              fontFamily: 'system-ui, sans-serif',
-            }}
-          >
-            Loading 3D model…
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingPlaceholder />}>
         <group ref={modelRef}>
           <Model />
         </group>
