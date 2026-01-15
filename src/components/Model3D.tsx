@@ -45,6 +45,7 @@ export default function Model3D() {
     <Canvas
       camera={{ fov: 45 }}
       frameloop="demand"
+      onCreated={({ invalidate }) => invalidate()}
       dpr={[1, 1.5]}
       gl={{ powerPreference: 'high-performance' }}
       style={{ width: '100%', height: '100vh' }}
@@ -52,7 +53,24 @@ export default function Model3D() {
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 10, 5]} intensity={1} />
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#aaa',
+              fontSize: '18px',
+              fontFamily: 'system-ui, sans-serif',
+            }}
+          >
+            Loading 3D model…
+          </div>
+        }
+      >
         <group ref={modelRef}>
           <Model />
         </group>

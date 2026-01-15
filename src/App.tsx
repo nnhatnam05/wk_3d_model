@@ -8,7 +8,7 @@ function App() {
 
   const isDesktop = useMemo(() => {
     if (typeof window === 'undefined') return false
-    return window.matchMedia('(pointer: fine) and (min-width: 768px)').matches
+    return window.innerWidth >= 768
   }, [])
 
   useEffect(() => {
