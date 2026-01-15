@@ -1,23 +1,42 @@
 import { useGLTF } from '@react-three/drei'
-import { forwardRef, useLayoutEffect } from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-const MODEL_URL =
-  'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wukong_-.glb'
+export const Model = forwardRef<THREE.Group>((_props, ref) => {
+  const { scene } = useGLTF(
+    'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wk.glb'
+  )
+  const internalRef = useRef<THREE.Group>(null)
 
-export const Model = forwardRef<THREE.Group>((_, ref) => {
-  const { scene } = useGLTF(MODEL_URL)
-
-  useLayoutEffect(() => {
-    if (ref && 'current' in ref && ref.current) {
-      const box = new THREE.Box3().setFromObject(ref.current)
-      const center = box.getCenter(new THREE.Vector3())
-      ref.current.position.sub(center) // center model
+  useEffect(() => {
+    // Set ref for parent
+    if (ref && 'current' in ref) {
+      ;(ref as React.MutableRefObject<THREE.Group | null>).current =
+        internalRef.current
     }
-  }, [ref])
 
-  return <primitive ref={ref} object={scene} dispose={null} />
+    // Center model - delay để đảm bảo geometry đã load
+    const timer = setTimeout(() => {
+      if (internalRef.current) {
+        const box = new THREE.Box3().setFromObject(internalRef.current)
+        const center = box.getCenter(new THREE.Vector3())
+        const size = box.getSize(new THREE.Vector3())
+        const maxDim = Math.max(size.x, size.y, size.z)
+
+        if (maxDim > 0) {
+          internalRef.current.position.sub(center) // center model
+        }
+      }
+    }, 200)
+
+    return () => clearTimeout(timer)
+  }, [ref, scene])
+
+  return <primitive ref={internalRef} object={scene} scale={0.1} />
 })
 
 Model.displayName = 'Model'
-useGLTF.preload(MODEL_URL)
+
+useGLTF.preload(
+  'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wk.glb'
+)

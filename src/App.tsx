@@ -1,23 +1,13 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import './App.css'
-import LoadingPlaceholder from './components/LoadingPlaceholder'
+import Model3D from './components/Model3D'
 
-const Model3D = lazy(() => import('./components/Model3D'))
-
-function App() {
-  const [show3D, setShow3D] = useState(false)
-
-  useEffect(() => {
-    setShow3D(true)
-  }, [])
-
+export default function App() {
   return (
-    <div className="landing-page">
-      <Suspense fallback={<LoadingPlaceholder />}>
-        {show3D && <Model3D />}
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <Suspense fallback={null}>
+        <Model3D />
       </Suspense>
     </div>
   )
 }
-
-export default App

@@ -7,41 +7,34 @@ export function FitCamera({
 }: {
   targetRef: React.RefObject<THREE.Object3D | null>
 }) {
-  const { camera, invalidate } = useThree()
+  const { camera } = useThree()
   const fitted = useRef(false)
 
   useEffect(() => {
     if (fitted.current) return
     if (!(camera instanceof THREE.PerspectiveCamera)) return
 
-    let raf = 0
-    const tick = () => {
-      const target = targetRef.current
-      if (!target) {
-        raf = window.requestAnimationFrame(tick)
-        return
-      }
+    const target = targetRef.current
+    if (!target) return
 
-      const box = new THREE.Box3().setFromObject(target)
-      const size = box.getSize(new THREE.Vector3())
-      const center = box.getCenter(new THREE.Vector3())
+    const box = new THREE.Box3().setFromObject(target)
+    const size = box.getSize(new THREE.Vector3())
+    const center = box.getCenter(new THREE.Vector3())
 
-      const maxDim = Math.max(size.x, size.y, size.z)
-      const fov = (camera.fov * Math.PI) / 180
-      let cameraZ = maxDim / (2 * Math.tan(fov / 2))
-      cameraZ *= 1.4 // padding
+    const maxDim = Math.max(size.x, size.y, size.z)
+    if (maxDim === 0) return
 
-      camera.position.set(center.x, center.y, cameraZ)
-      camera.lookAt(center)
-      camera.updateProjectionMatrix()
+    const fov = THREE.MathUtils.degToRad(camera.fov)
+    let distance = maxDim / (2 * Math.tan(fov / 2))
 
-      fitted.current = true
-      invalidate()
-    }
+    distance *= 1.1 // padding NHẸ (KHÔNG 1.4)
 
-    raf = window.requestAnimationFrame(tick)
-    return () => window.cancelAnimationFrame(raf)
-  }, [camera, invalidate, targetRef])
+    camera.position.set(center.x, center.y, distance)
+    camera.lookAt(center)
+    camera.updateProjectionMatrix()
+
+    fitted.current = true
+  }, [camera, targetRef])
 
   return null
 }
