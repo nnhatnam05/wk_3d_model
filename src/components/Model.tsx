@@ -2,8 +2,11 @@ import { useGLTF } from '@react-three/drei'
 import { useLayoutEffect, useRef } from 'react'
 import * as THREE from 'three'
 
+const MODEL_URL =
+  'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wukong_-.glb'
+
 export function Model() {
-  const { scene } = useGLTF('/models/wukong.glb')
+  const { scene } = useGLTF(MODEL_URL)
   const internalRef = useRef<THREE.Group>(null)
 
   useLayoutEffect(() => {
@@ -17,4 +20,4 @@ export function Model() {
   return <primitive ref={internalRef} object={scene} dispose={null} />
 }
 
-useGLTF.preload('/models/wukong.glb')
+useGLTF.preload(MODEL_URL)
