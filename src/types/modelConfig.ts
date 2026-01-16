@@ -49,4 +49,18 @@ export interface ModelConfig {
     start: string // ScrollTrigger start (e.g., 'top bottom')
     end: string // ScrollTrigger end (e.g., 'top top')
   }
+  
+  // Galaxy effect configuration
+  galaxy?: {
+    enabled: boolean
+    position: [number, number, number] // Vị trí vòng trong thiên hà
+    rotation: [number, number, number] // Góc nghiêng [x, y, z]
+    rotationSpeed: number // Tốc độ xoay (default: 0.1)
+    particlesCount: number // Số lượng hạt (default: 15000)
+    insideColor: string // Màu bên trong (default: '#00ff00')
+    outsideColor: string // Màu bên ngoài (default: '#1b3984')
+    galaxyRadius?: number // Bán kính thiên hà (default: 50)
+    branches?: number // Số nhánh xoắn ốc (default: 6)
+    spin?: number // Độ xoắn (default: 1.8)
+  }
 }

@@ -23,7 +23,7 @@ export default function LandingPage() {
     //   -Math.PI / 2 = nhìn sang phải (right)
     //   Math.PI * 0.25 = nhìn chéo trái (diagonal left)
     //   Math.PI * 0.75 = nhìn chéo phải (diagonal right)
-    modelInitialRotation: [0, -7.8, 0], // [x, y, z] - Y là trục quay chính
+    modelInitialRotation: [0, -7.9, 0], // [x, y, z] - Y là trục quay chính
     
     // Kích thước ban đầu (bỏ qua nếu muốn auto-scale từ bounding box)
      modelInitialScale: 1.2, // Uncomment và set giá trị nếu muốn scale cụ thể
@@ -79,6 +79,32 @@ export default function LandingPage() {
       trigger: '.images-container', // Element trigger
       start: 'top bottom', // ScrollTrigger start
       end: 'top top', // ScrollTrigger end
+    },
+    
+    // Galaxy effect configuration - Hiệu ứng thiên hà
+    // Vị trí và góc nghiêng cố định - Dễ dàng chỉnh sửa tại đây
+    galaxy: {
+      enabled: true, // Bật/tắt hiệu ứng thiên hà
+      
+      // VỊ TRÍ CỐ ĐỊNH - Điều chỉnh [x, y, z] để di chuyển galaxy
+      // x: trái (-) / phải (+)
+      // y: thấp (-) / cao (+)
+      // z: gần (+) / xa (-)
+      position: [0, -1.5, -2], // Vị trí cố định phía sau model
+      
+      // GÓC NGHIÊNG CỐ ĐỊNH - Điều chỉnh [x, y, z] để nghiêng galaxy
+      // x: nghiêng lên (+) / xuống (-) - radians (0.3 ≈ 17 độ)
+      // y: xoay trái (-) / phải (+) - radians
+      // z: nghiêng ngang - radians
+      rotation: [4, 4, 0], // Góc nghiêng cố định - nghiêng lên 0.25 rad (≈14 độ)
+      
+      rotationSpeed: 0.1, // Tốc độ xoay (0.1 = chậm, 0.5 = nhanh)
+      particlesCount: 15000, // Số lượng hạt (15000 = mặc định, 30000 = nhiều hơn)
+      insideColor: '#ffff00', // Màu bên trong thiên hà
+      outsideColor: '#ff4500', // Màu bên ngoài thiên hà
+      galaxyRadius: 2, // Bán kính thiên hà (càng lớn càng rộng)
+      branches: 10, // Số nhánh xoắn ốc (3-8)
+      spin: 1.5, // Độ xoắn (1.0-3.0)
     },
   }
 

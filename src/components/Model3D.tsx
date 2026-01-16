@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 // import { EffectComposer, Bloom } from '@react-three/postprocessing' // Disabled for WebGL compatibility
-import { Suspense, useEffect, useRef, useState, forwardRef } from 'react'
+import { Suspense, useEffect, useRef, useState, forwardRef, useMemo } from 'react'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -18,6 +18,132 @@ interface Model3DProps {
   enableScrollRotation?: boolean
   enableBloom?: boolean // Currently unused but kept for future use
   config?: ModelConfig // Optional config for advanced control
+}
+
+// Galaxy Effect component - Based on code sample with customizable settings
+function GlowingRing({ 
+  position = [0, -1.5, -2],
+  rotation = [0, 0, 0],
+  rotationSpeed = 0.1, // Tốc độ xoay như cánh quạt
+  particlesCount = 15000,
+  insideColor = '#00ff00',
+  outsideColor = '#1b3984',
+  galaxyRadius = 50,
+  branches = 6,
+  spin = 1.8,
+}: {
+  position?: [number, number, number]
+  rotation?: [number, number, number]
+  rotationSpeed?: number // Không sử dụng - galaxy đứng yên
+  particlesCount?: number
+  insideColor?: string
+  outsideColor?: string
+  galaxyRadius?: number
+  branches?: number
+  spin?: number
+}) {
+  const isMobile = (typeof window !== 'undefined') && (window.innerWidth < 768 || (window.devicePixelRatio > 2 && window.innerWidth < 1024))
+  const particlesCountFinal = isMobile ? Math.floor(particlesCount * 0.5) : particlesCount
+  const randomness = 0.35
+  const randomnessPower = 2.5
+  const innerRadius = 1.5
+  
+  const { positions, colors, sizes } = useMemo(() => {
+    const pos = new Float32Array(particlesCountFinal * 3)
+    const col = new Float32Array(particlesCountFinal * 3)
+    const siz = new Float32Array(particlesCountFinal)
+    const colorInside = new THREE.Color(insideColor)
+    const colorOutside = new THREE.Color(outsideColor)
+    const colorCenter = new THREE.Color('#ffffff')
+    
+    for (let i = 0; i < particlesCountFinal; i++) {
+      const i3 = i * 3
+      const radius = Math.pow(Math.random(), 1.8) * (galaxyRadius - innerRadius) + innerRadius
+      const branchAngle = ((i % branches) / branches) * 2 * Math.PI
+      const spinAngle = radius * spin
+      const randomMultiplier = Math.pow(radius / galaxyRadius, 0.5)
+      const randomX = Math.pow(Math.random(), randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * randomness * randomMultiplier
+      const randomY = Math.pow(Math.random(), randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * randomness * randomMultiplier * 0.7
+      const randomZ = Math.pow(Math.random(), randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * randomness * randomMultiplier
+      
+      pos[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX
+      pos[i3 + 1] = randomY * 0.5
+      pos[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ
+      
+      const mixedColor = new THREE.Color()
+      if (radius < innerRadius * 2) {
+        const t = radius / (innerRadius * 2)
+        mixedColor.copy(colorCenter).lerp(colorInside, t)
+      } else {
+        const t = (radius - innerRadius * 2) / (galaxyRadius - innerRadius * 2)
+        mixedColor.copy(colorInside).lerp(colorOutside, t)
+      }
+      
+      col[i3] = mixedColor.r
+      col[i3 + 1] = mixedColor.g
+      col[i3 + 2] = mixedColor.b
+      siz[i] = Math.max(0.09, 0.2 * (1 - radius / galaxyRadius))
+    }
+    
+    return { positions: pos, colors: col, sizes: siz }
+  }, [insideColor, outsideColor, particlesCountFinal, galaxyRadius, branches, spin])
+
+  const points = useMemo(() => {
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+    geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1))
+    
+    const material = new THREE.ShaderMaterial({
+      uniforms: { 
+        time: { value: 0 }, 
+        pixelRatio: { value: Math.min(window.devicePixelRatio, 2) } 
+      },
+      vertexShader: `
+        attribute float size;
+        varying vec3 vColor;
+        uniform float time;
+        void main() {
+          vColor = color;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_Position = projectionMatrix * mvPosition;
+          gl_PointSize = size * 300.0 / -mvPosition.z;
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vColor;
+        void main() {
+          float s = distance(gl_PointCoord, vec2(0.5));
+          s = 1.0 - s;
+          s = pow(s, 3.0);
+          vec3 c = mix(vec3(0.0), vColor, s);
+          gl_FragColor = vec4(c, s);
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      transparent: true,
+      vertexColors: true
+    })
+    
+    return new THREE.Points(geometry, material)
+  }, [positions, colors, sizes])
+
+  // Hiệu ứng xoay như cánh quạt cho galaxy
+  useFrame((state) => {
+    if (points) {
+      // Xoay quanh trục Y (như cánh quạt)
+      points.rotation.y = state.clock.elapsedTime * rotationSpeed
+      // Có thể thêm xoay quanh trục Z nhẹ để tạo hiệu ứng 3D
+      // points.rotation.z = state.clock.elapsedTime * (rotationSpeed * 0.3)
+    }
+  })
+
+  return (
+    <group position={position} rotation={rotation} layers={1}>
+      <primitive object={points} castShadow={false} receiveShadow={false} />
+    </group>
+  )
 }
 
 // Torus component with emissive material
@@ -602,6 +728,22 @@ export default function Model3D({
             distance={1}
             decay={1.5}
           />
+
+          {/* Glowing Ring - Behind the model - Render FIRST so it's behind */}
+          {/* Galaxy Effect - Configurable from modelConfig */}
+          {config?.galaxy?.enabled && (
+            <GlowingRing
+              position={config.galaxy.position}
+              rotation={config.galaxy.rotation}
+              rotationSpeed={config.galaxy.rotationSpeed}
+              particlesCount={config.galaxy.particlesCount}
+              insideColor={config.galaxy.insideColor}
+              outsideColor={config.galaxy.outsideColor}
+              galaxyRadius={config.galaxy.galaxyRadius}
+              branches={config.galaxy.branches}
+              spin={config.galaxy.spin}
+            />
+          )}
 
           {/* Torus */}
           <Torus />
