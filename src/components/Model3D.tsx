@@ -618,7 +618,7 @@ export default function Model3D({
               fontWeight: 400,
             }}
           >
-            Please wait while the model is loading...
+            Welcome to WuKong ❤️
           </p>
         </div>
       )}
