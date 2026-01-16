@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import BannerSection from '../components/BannerSection'
 import ImagesContainer from '../components/ImagesContainer'
 import MiniGameBanner from '../components/MiniGameBanner'
+import TournamentsBanner from '../components/TournamentsBanner'
 import type { ModelConfig } from '../types/modelConfig'
 import { useMemo } from 'react'
 
@@ -135,7 +136,10 @@ export default function LandingPage() {
       </main>
 
       {/* Mini Game Banner - Fixed position */}
-      <MiniGameBanner />
+      <MiniGameBanner enabled={true} />
+
+      {/* Tournaments Banner - Fixed position */}
+      <TournamentsBanner enabled={true} />
     </>
   )
 }

@@ -110,7 +110,7 @@
   height: auto;
 }
 
-/* More Content Section - Chia đôi layout */
+/* More Content Section - Bán thẻ tập */
 .more-content-section {
   width: 100%;
   min-height: 100vh;
@@ -121,11 +121,9 @@
 .content-wrapper {
   max-width: 1400px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
+  justify-content: center;
   align-items: start;
-  justify-content: space-between;
 }
 
 /* Bên trái: Bán thẻ tập */
@@ -191,125 +189,6 @@
   background: #ffffff;
 }
 
-/* Bên phải: Giải đấu sắp tới */
-.tournaments-section {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
-.tournaments-section .section-title {
-  text-align: right;
-}
-
-.tournament-card {
-  width: 100%;
-  max-width: 100%;
-}
-
-.tournaments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.tournament-card {
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 4px;
-}
-
-.tournament-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-}
-
-.tournament-name {
-  color: white;
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.tournament-rank {
-  padding: 4px 12px;
-  background: #EBEBEB;
-  color: #000;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.tournament-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-bottom: 20px;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
-  font-size: 16px;
-}
-
-.info-row:last-child {
-  padding-bottom: 0;
-}
-
-.info-row:first-child {
-  padding-top: 0;
-}
-
-.info-label {
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.info-value {
-  color: #FFFFFF;
-  font-weight: 600;
-  text-align: right;
-}
-
-.info-value.registered {
-  color: #FFFFFF;
-}
-
-.info-value.available {
-  color: #FFFFFF;
-  font-weight: 700;
-}
-
-.register-btn {
-  display: block;
-  padding: 12px 24px;
-  background: #EBEBEB;
-  color: #000;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-  transition: background 0.2s ease;
-}
-
-.register-btn:hover {
-  background: #ffffff;
-}
-
 /* Tablet Landscape */
 @media screen and (max-width: 1024px) {
   .images-container {
@@ -330,23 +209,19 @@
   }
   
   .content-wrapper {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 50px;
   }
   
   .section-title {
     font-size: 36px;
   }
-  
-  .tournament-name {
-    font-size: 20px;
-  }
 }
 
 /* Tablet Portrait */
 @media screen and (max-width: 768px) {
   .images-container {
-    padding: 200px 20px 60px 20px;
+    padding: 500px 20px 60px 20px;
     flex-direction: column;
     align-items: center;
     gap: 30px;
@@ -372,7 +247,7 @@
   }
   
   .content-wrapper {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 50px;
   }
   
@@ -392,34 +267,12 @@
   .feature-text p {
     font-size: 13px;
   }
-  
-  .tournament-card {
-    padding: 20px;
-  }
-  
-  .tournament-name {
-    font-size: 18px;
-  }
-  
-  .tournament-rank {
-    font-size: 11px;
-    padding: 5px 12px;
-  }
-  
-  .tournament-info {
-    padding: 12px 14px;
-  }
-  
-  .info-row {
-    font-size: 15px;
-    padding: 4px 0;
-  }
 }
 
 /* Mobile Large */
 @media screen and (max-width: 480px) {
   .images-container {
-    padding: 150px 15px 50px 15px;
+    padding: 500px 15px 50px 15px;
     gap: 25px;
   }
   
@@ -474,39 +327,12 @@
     padding: 14px 28px;
     font-size: 14px;
   }
-  
-  .tournament-card {
-    padding: 18px;
-  }
-  
-  .tournament-name {
-    font-size: 16px;
-  }
-  
-  .tournament-rank {
-    font-size: 10px;
-    padding: 4px 10px;
-  }
-  
-  .tournament-info {
-    padding: 10px 12px;
-  }
-  
-  .info-row {
-    font-size: 14px;
-    padding: 4px 0;
-  }
-  
-  .register-btn {
-    padding: 10px 20px;
-    font-size: 13px;
-  }
 }
 
 /* Mobile Medium */
 @media screen and (max-width: 375px) {
   .images-container {
-    padding: 120px 12px 40px 12px;
+    padding: 500px 12px 40px 12px;
     gap: 20px;
   }
   
@@ -555,39 +381,12 @@
     padding: 12px 24px;
     font-size: 13px;
   }
-  
-  .tournament-card {
-    padding: 16px;
-  }
-  
-  .tournament-name {
-    font-size: 15px;
-  }
-  
-  .tournament-rank {
-    font-size: 9px;
-    padding: 4px 8px;
-  }
-  
-  .tournament-info {
-    padding: 10px;
-  }
-  
-  .info-row {
-    font-size: 13px;
-    padding: 3px 0;
-  }
-  
-  .register-btn {
-    padding: 10px 18px;
-    font-size: 12px;
-  }
 }
 
 /* Mobile Small */
 @media screen and (max-width: 320px) {
   .images-container {
-    padding: 100px 10px 30px 10px;
+    padding: 500px 10px 30px 10px;
     gap: 18px;
   }
   
@@ -636,33 +435,6 @@
     padding: 10px 20px;
     font-size: 12px;
   }
-  
-  .tournament-card {
-    padding: 14px;
-  }
-  
-  .tournament-name {
-    font-size: 14px;
-  }
-  
-  .tournament-rank {
-    font-size: 8px;
-    padding: 3px 6px;
-  }
-  
-  .tournament-info {
-    padding: 8px;
-  }
-  
-  .info-row {
-    font-size: 12px;
-    padding: 3px 0;
-  }
-  
-  .register-btn {
-    padding: 8px 16px;
-    font-size: 11px;
-  }
 }
 
 /* Landscape Orientation */
@@ -681,15 +453,11 @@
   }
   
   .content-wrapper {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 40px;
   }
   
   .section-title {
     font-size: 28px;
-  }
-  
-  .tournament-name {
-    font-size: 18px;
   }
 }

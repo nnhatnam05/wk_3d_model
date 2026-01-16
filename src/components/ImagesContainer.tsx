@@ -1,39 +1,5 @@
 import './ImagesContainer.css'
 
-// Mock data cho giải đấu sắp tới
-const tournamentsData = [
-  {
-    id: 1,
-    name: 'Giải Billiards WUKONG',
-    rank: 'Hạng G - H',
-    date: '27/01/2025',
-    totalPlayers: 64,
-    registeredPlayers: 18,
-    availableSlots: 46,
-    registerLink: '#'
-  },
-  // {
-  //   id: 2,
-  //   name: 'Cúp Wukong Billiards',
-  //   rank: 'Hạng B',
-  //   date: '05/02/2025 - 07/02/2025',
-  //   totalPlayers: 24,
-  //   registeredPlayers: 12,
-  //   availableSlots: 12,
-  //   registerLink: '#'
-  // },
-  // {
-  //   id: 3,
-  //   name: 'Giải Đấu Nhanh Tháng 2',
-  //   rank: 'Hạng C',
-  //   date: '15/02/2025',
-  //   totalPlayers: 16,
-  //   registeredPlayers: 8,
-  //   availableSlots: 8,
-  //   registerLink: '#'
-  // },
-]
-
 // Mock data for images - Thay thế URLs bằng hình ảnh thật của bạn
 const imageData = [
   {
@@ -96,10 +62,10 @@ export default function ImagesContainer() {
         </div>
       ))}
 
-      {/* More Content Section - Chia đôi: Bán thẻ tập & Giải đấu */}
+      {/* More Content Section - Bán thẻ tập */}
       <section className="more-content-section">
         <div className="content-wrapper">
-          {/* Bên trái: Giới thiệu bán thẻ tập */}
+          {/* Giới thiệu bán thẻ tập */}
           <div className="card-sales-section">
             <h2 className="section-title">Thẻ Tập Billiards</h2>
             <div className="card-info">
@@ -125,42 +91,6 @@ export default function ImagesContainer() {
             <a href="#" className="buy-card-btn">
               Mua Thẻ Ngay
             </a>
-          </div>
-
-          {/* Bên phải: Giải đấu sắp tới */}
-          <div className="tournaments-section">
-            <h2 className="section-title">Wukong Tournaments</h2>
-            <div className="tournaments-list">
-              {tournamentsData.map((tournament) => (
-                <div key={tournament.id} className="tournament-card">
-                  <div className="tournament-header">
-                    <h3 className="tournament-name">{tournament.name}</h3>
-                    <span className="tournament-rank">{tournament.rank}</span>
-                  </div>
-                  <div className="tournament-info">
-                    <div className="info-row">
-                      <span className="info-label">Ngày thi đấu:</span>
-                      <span className="info-value">{tournament.date}</span>
-                    </div>
-                    <div className="info-row">
-                      <span className="info-label">Số VĐV:</span>
-                      <span className="info-value">{tournament.totalPlayers} người</span>
-                    </div>
-                    <div className="info-row">
-                      <span className="info-label">Đã đăng ký:</span>
-                      <span className="info-value registered">{tournament.registeredPlayers} VĐV</span>
-                    </div>
-                    <div className="info-row">
-                      <span className="info-label">Còn trống:</span>
-                      <span className="info-value available">{tournament.availableSlots} slot</span>
-                    </div>
-                  </div>
-                  <a href={tournament.registerLink} className="register-btn">
-                    Đăng Ký Ngay
-                  </a>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

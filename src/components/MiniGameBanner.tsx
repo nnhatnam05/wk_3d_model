@@ -14,7 +14,11 @@ const miniGameData = {
   link: '#'
 }
 
-export default function MiniGameBanner() {
+interface MiniGameBannerProps {
+  enabled?: boolean // Flag để bật/tắt hiển thị
+}
+
+export default function MiniGameBanner({ enabled = true }: MiniGameBannerProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [pulse, setPulse] = useState(true)
 
@@ -28,6 +32,11 @@ export default function MiniGameBanner() {
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded)
+  }
+
+  // Không hiển thị nếu disabled
+  if (!enabled) {
+    return null
   }
 
   return (
