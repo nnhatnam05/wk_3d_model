@@ -328,9 +328,15 @@
 
 @media screen and (max-width: 480px) {
   .mini-game-banner.collapsed {
-    padding: 10px 14px;
+    padding: 12px;
     bottom: 15px;
     right: 15px;
+    width: auto;
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .mini-game-banner.expanded {
@@ -342,16 +348,27 @@
     padding: 14px;
   }
   
+  .collapsed-view {
+    justify-content: center;
+    width: 100%;
+  }
+  
   .game-icon {
-    font-size: 24px;
+    font-size: 28px;
+    margin: 0;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
   }
   
   .collapsed-title {
-    font-size: 13px;
+    display: none;
   }
   
   .collapsed-subtitle {
-    font-size: 10px;
+    display: none;
   }
   
   .game-title {
@@ -390,23 +407,42 @@
 
 @media screen and (max-width: 375px) {
   .mini-game-banner.collapsed {
-    padding: 8px 12px;
+    padding: 10px;
+    bottom: 15px;
+    right: 15px;
+    width: auto;
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .mini-game-banner.expanded {
     padding: 12px;
   }
   
+  .collapsed-view {
+    justify-content: center;
+    width: 100%;
+  }
+  
   .game-icon {
-    font-size: 22px;
+    font-size: 26px;
+    margin: 0;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
   }
   
   .collapsed-title {
-    font-size: 12px;
+    display: none;
   }
   
   .collapsed-subtitle {
-    font-size: 9px;
+    display: none;
   }
   
   .game-title {
@@ -420,5 +456,70 @@
   .play-btn {
     padding: 10px 16px;
     font-size: 11px;
+  }
+}
+
+/* Mobile Small */
+@media screen and (max-width: 320px) {
+  .mini-game-banner.collapsed {
+    padding: 8px;
+    bottom: 15px;
+    right: 10px;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mini-game-banner.expanded {
+    padding: 12px;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+  }
+  
+  .collapsed-view {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .game-icon {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
+  }
+  
+  .collapsed-title {
+    display: none;
+  }
+  
+  .collapsed-subtitle {
+    display: none;
+  }
+  
+  .game-title {
+    font-size: 13px;
+  }
+  
+  .game-description {
+    font-size: 10px;
+  }
+  
+  .play-btn {
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+  
+  .close-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+    top: 6px;
+    right: 6px;
   }
 }

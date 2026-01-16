@@ -296,9 +296,15 @@
 
 @media screen and (max-width: 480px) {
   .tournaments-banner.collapsed {
-    padding: 10px 14px;
-    bottom: 15px;
+    padding: 12px;
+    bottom: 15px; /* Cùng hàng với MiniGameBanner */
     left: 15px;
+    width: auto;
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .tournaments-banner.expanded {
@@ -310,16 +316,27 @@
     padding: 14px;
   }
   
+  .collapsed-view {
+    justify-content: center;
+    width: 100%;
+  }
+  
   .tournament-icon-small {
-    font-size: 24px;
+    font-size: 28px;
+    margin: 0;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
   }
   
   .collapsed-title {
-    font-size: 13px;
+    display: none;
   }
   
   .collapsed-subtitle {
-    font-size: 10px;
+    display: none;
   }
   
   .tournament-title {
@@ -354,23 +371,42 @@
 
 @media screen and (max-width: 375px) {
   .tournaments-banner.collapsed {
-    padding: 8px 12px;
+    padding: 10px;
+    bottom: 15px; /* Cùng hàng với MiniGameBanner */
+    left: 15px;
+    width: auto;
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .tournaments-banner.expanded {
     padding: 12px;
   }
   
+  .collapsed-view {
+    justify-content: center;
+    width: 100%;
+  }
+  
   .tournament-icon-small {
-    font-size: 22px;
+    font-size: 26px;
+    margin: 0;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
   }
   
   .collapsed-title {
-    font-size: 12px;
+    display: none;
   }
   
   .collapsed-subtitle {
-    font-size: 9px;
+    display: none;
   }
   
   .tournament-title {
@@ -385,11 +421,52 @@
 
 /* Tránh overlap với MiniGameBanner trên mobile */
 @media screen and (max-width: 768px) {
-  .tournaments-banner {
-    bottom: 80px; /* Để tránh overlap với MiniGameBanner */
+  .tournaments-banner.collapsed {
+    bottom: 15px; /* Cùng hàng với MiniGameBanner */
+    left: 15px;
   }
   
   .tournaments-banner.expanded {
-    bottom: 80px;
+    bottom: 10px; /* Expanded state có thể ở dưới cùng */
+  }
+}
+
+/* Mobile Small - Đảm bảo không overlap */
+@media screen and (max-width: 320px) {
+  .tournaments-banner.collapsed {
+    padding: 8px;
+    bottom: 15px; /* Cùng hàng với MiniGameBanner */
+    left: 10px;
+    min-width: 40px;
+    height: 40px;
+  }
+  
+  .tournament-icon-small {
+    font-size: 24px;
+  }
+  
+  .mini-game-banner.collapsed {
+    padding: 8px;
+    bottom: 15px;
+    right: 10px;
+    min-width: 40px;
+    height: 40px;
+  }
+  
+  .game-icon {
+    font-size: 24px;
+  }
+  
+  /* Ẩn text trên mobile - chỉ hiển thị icon */
+  .collapsed-text {
+    display: none;
+  }
+  
+  .collapsed-title {
+    display: none;
+  }
+  
+  .collapsed-subtitle {
+    display: none;
   }
 }
