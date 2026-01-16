@@ -1,0 +1,107 @@
+/* Banner Section */
+.banner-section {
+  max-width: 1122px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 30px 40px 300px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.banner-section h1 {
+  font-size: 70px;
+  line-height: 90px;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 0;
+}
+
+.banner-section p {
+  color: #949494;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 700px;
+  margin-bottom: 15px;
+}
+
+.cta-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #D6F844;
+  position: relative;
+  max-width: fit-content;
+  margin: 15px auto 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all ease-in-out 0.15s;
+  font-size: 14px;
+}
+
+.cta-link:hover {
+  gap: 8px;
+}
+
+.cta-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  width: 0%;
+  height: 1px;
+  background: #D6F844;
+  transition: all ease-in-out 0.15s;
+}
+
+.cta-link:hover::after {
+  width: 100%;
+  left: 0;
+  right: unset;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .banner-section h1 {
+    font-size: 80px;
+    line-height: 120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner-section h1 {
+    font-size: 60px;
+    line-height: 80px;
+  }
+  .banner-section {
+    padding: 40px 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner-section h1 {
+    font-size: 40px;
+    line-height: 50px;
+  }
+  .banner-section {
+    padding: 0 15px;
+  }
+  .banner-section a {
+    margin: 20px auto 0;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .banner-section h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  .banner-section {
+    padding: 0 10px;
+  }
+}

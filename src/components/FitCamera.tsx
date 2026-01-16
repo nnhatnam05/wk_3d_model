@@ -5,7 +5,7 @@ import * as THREE from 'three'
 export function FitCamera({
   targetRef,
 }: {
-  targetRef: React.RefObject<THREE.Object3D | null>
+  targetRef: React.RefObject<THREE.Object3D | null | undefined>
 }) {
   const { camera } = useThree()
   const fitted = useRef(false)

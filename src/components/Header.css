@@ -1,0 +1,125 @@
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+  background: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  max-width: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #EBEBEB;
+}
+
+.logo h2 {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.nav-link-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: #0F0F0F;
+  padding: 10px 30px;
+}
+
+.nav-link-container button {
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #EBEBEB;
+  font-size: 20px;
+}
+
+.nav-link-container a {
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #EBEBEB;
+  transition: all ease-in-out 0.15s;
+}
+
+.nav-link-container a:hover {
+  color: #D6F844;
+}
+
+.toggle-btn {
+  background: #515151;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .header {
+    padding: 20px 30px;
+  }
+  .nav-link-container {
+    gap: 25px;
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .logo {
+    max-width: 200px;
+  }
+  .nav-link-container {
+    gap: 20px;
+    padding-left: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-link-container a {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 15px;
+  }
+  .logo {
+    max-width: 150px;
+  }
+  .nav-link-container {
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 0px;
+  }
+  .nav-link-container a {
+    font-size: 11px;
+  }
+  .toggle-btn {
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .header {
+    padding: 10px;
+  }
+  .nav-link-container {
+    gap: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .nav-link-container a {
+    font-size: 10px;
+  }
+}
