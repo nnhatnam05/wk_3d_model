@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import { forwardRef, useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-export const Model = forwardRef<THREE.Group>((_props, ref) => {
+export const Model = forwardRef<THREE.Group>((_props, _ref) => {
   const { scene } = useGLTF(
     'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wukong.glb'
   )

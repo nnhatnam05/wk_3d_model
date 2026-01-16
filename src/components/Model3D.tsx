@@ -16,7 +16,7 @@ import type { ModelConfig } from '../types/modelConfig'
 interface Model3DProps {
   modelPath?: string
   enableScrollRotation?: boolean
-  enableBloom?: boolean
+  enableBloom?: boolean // Currently unused but kept for future use
   config?: ModelConfig // Optional config for advanced control
 }
 
@@ -399,7 +399,7 @@ function ScrollRotation({
 export default function Model3D({ 
   modelPath = 'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wukong.glb',
   enableScrollRotation = true,
-  enableBloom = false, // Disabled for WebGL compatibility on Windows/Intel GPU
+  enableBloom: _enableBloom = false, // Disabled for WebGL compatibility on Windows/Intel GPU (prefixed with _ to indicate unused)
   config,
 }: Model3DProps) {
   const [modelLoaded, setModelLoaded] = useState(false)
