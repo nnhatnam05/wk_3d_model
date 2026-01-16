@@ -5,7 +5,7 @@ export default function BannerSection() {
     <section className="banner-section">
       <h1>wukong billiards & coffee</h1>
       <p>
-        Welcome to WuKong ❤️
+        Welcome to WuKong ❤️ <br />
         Địa chỉ: 121 Đường Hồ Thị Hương, Phường Long Khánh, Tỉnh Đồng Nai
       </p>
       <a href="#" className="cta-link">
