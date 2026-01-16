@@ -8,6 +8,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .banner-section h1 {
@@ -18,14 +20,19 @@
   text-transform: uppercase;
   margin-bottom: 15px;
   margin-top: 0;
+  word-wrap: break-word;
+  hyphens: auto;
+  letter-spacing: -0.02em;
 }
 
 .banner-section p {
   color: #949494;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   max-width: 700px;
   margin-bottom: 15px;
+  padding: 0 20px;
+  word-wrap: break-word;
 }
 
 .cta-link {
@@ -41,10 +48,16 @@
   text-decoration: none;
   transition: all ease-in-out 0.15s;
   font-size: 14px;
+  padding: 8px 0;
+  touch-action: manipulation;
 }
 
 .cta-link:hover {
   gap: 8px;
+}
+
+.cta-link:active {
+  transform: scale(0.98);
 }
 
 .cta-link::after {
@@ -64,44 +77,147 @@
   right: unset;
 }
 
-/* Responsive */
+/* Tablet Landscape */
 @media screen and (max-width: 1024px) {
-  .banner-section h1 {
-    font-size: 80px;
-    line-height: 120px;
+  .banner-section {
+    padding: 30px 30px 250px 30px;
   }
-}
-
-@media screen and (max-width: 768px) {
+  
   .banner-section h1 {
-    font-size: 60px;
+    font-size: 64px;
     line-height: 80px;
+    margin-bottom: 20px;
   }
-  .banner-section {
-    padding: 40px 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .banner-section h1 {
-    font-size: 40px;
-    line-height: 50px;
-  }
-  .banner-section {
+  
+  .banner-section p {
+    font-size: 15px;
     padding: 0 15px;
   }
-  .banner-section a {
-    margin: 20px auto 0;
+}
+
+/* Tablet Portrait */
+@media screen and (max-width: 768px) {
+  .banner-section {
+    padding: 40px 20px 200px 20px;
+  }
+  
+  .banner-section h1 {
+    font-size: 48px;
+    line-height: 60px;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  
+  .banner-section p {
     font-size: 14px;
+    line-height: 1.5;
+    padding: 0 10px;
+    margin-bottom: 20px;
+  }
+  
+  .cta-link {
+    font-size: 13px;
+    margin-top: 20px;
   }
 }
 
-@media screen and (max-width: 360px) {
+/* Mobile Large */
+@media screen and (max-width: 480px) {
+  .banner-section {
+    padding: 30px 15px 150px 15px;
+  }
+  
+  .banner-section h1 {
+    font-size: 36px;
+    line-height: 44px;
+    margin-bottom: 15px;
+    letter-spacing: 0;
+    padding: 0 5px;
+  }
+  
+  .banner-section p {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 0 5px;
+    margin-bottom: 18px;
+  }
+  
+  .cta-link {
+    font-size: 12px;
+    margin-top: 18px;
+    padding: 6px 0;
+  }
+}
+
+/* Mobile Medium */
+@media screen and (max-width: 375px) {
+  .banner-section {
+    padding: 25px 12px 120px 12px;
+  }
+  
   .banner-section h1 {
     font-size: 32px;
     line-height: 40px;
+    margin-bottom: 12px;
   }
+  
+  .banner-section p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+  }
+  
+  .cta-link {
+    font-size: 11px;
+    margin-top: 15px;
+    padding: 5px 0;
+  }
+}
+
+/* Mobile Small */
+@media screen and (max-width: 320px) {
   .banner-section {
-    padding: 0 10px;
+    padding: 20px 10px 100px 10px;
+  }
+  
+  .banner-section h1 {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .banner-section p {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  
+  .cta-link {
+    font-size: 10px;
+    margin-top: 12px;
+    padding: 4px 0;
+  }
+}
+
+/* Landscape Orientation */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .banner-section {
+    padding: 20px 20px 100px 20px;
+  }
+  
+  .banner-section h1 {
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .banner-section p {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .cta-link {
+    font-size: 11px;
+    margin-top: 12px;
   }
 }

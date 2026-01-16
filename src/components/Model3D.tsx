@@ -241,10 +241,6 @@ const Model = forwardRef<THREE.Group, {
       const finalPosition = position || [0, -3.5, 2]
       internalRef.current.position.set(...finalPosition)
 
-      console.log('=== MODEL CONFIGURED ===')
-      console.log('Scale:', scale)
-      console.log('Position:', finalPosition)
-      console.log('Max dimension:', maxDim)
     }
 
     // Setup shadows for all meshes
@@ -313,10 +309,6 @@ function ScrollRotation({
       const initialRotationY = config?.modelInitialRotation?.[1] || 0
       const totalRotation = scrollRotation.maxRotation * scrollRotation.speed
       
-      console.log('=== ROTATION ANIMATION SETUP ===')
-      console.log('Initial rotation Y:', initialRotationY)
-      console.log('Max rotation:', scrollRotation.maxRotation)
-      console.log('Total rotation:', totalRotation)
       
       // Sử dụng ScrollTrigger với onUpdate để tính toán rotation dựa trên scroll progress
       // Đảm bảo reversible: scroll xuống = quay, scroll lên = quay ngược lại
@@ -348,7 +340,6 @@ function ScrollRotation({
           
           // Debug log
           if (progress % 0.1 < 0.01) {
-            console.log('Scroll progress:', progress.toFixed(2), 'Rotation Y:', currentRotation.toFixed(2))
           }
         },
       })
@@ -639,11 +630,16 @@ export default function Model3D({
             config?.cameraMovement?.startY || 1.4, 
             config?.cameraMovement?.startZ || config?.cameraPosition?.[2] || 6.5
           ], 
-          fov: config?.cameraFov || 35, 
+          fov: (() => {
+            // Responsive FOV: Mobile cần FOV lớn hơn để model không bị quá nhỏ
+            const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || (window.devicePixelRatio > 2 && window.innerWidth < 1024))
+            const baseFov = config?.cameraFov || 50
+            return isMobile ? Math.min(baseFov + 10, 75) : baseFov
+          })(), 
           near: 0.1, 
           far: 1000 
         }}
-        dpr={1}
+        dpr={typeof window !== 'undefined' ? Math.min(window.devicePixelRatio, 2) : 1}
         gl={{
           antialias: false,
           alpha: false,
@@ -672,11 +668,9 @@ export default function Model3D({
           // Handle WebGL context loss
           const handleContextLost = (event: Event) => {
             event.preventDefault()
-            console.warn('WebGL context lost')
           }
           
           const handleContextRestored = () => {
-            console.log('WebGL context restored')
           }
           
           const canvas = gl.domElement
@@ -688,8 +682,7 @@ export default function Model3D({
             canvas.removeEventListener('webglcontextrestored', handleContextRestored)
           }
         }}
-        onError={(error) => {
-          console.error('Canvas error:', error)
+        onError={(_error) => {
           setWebglError('Failed to create WebGL context. Please check browser settings.')
         }}
       >

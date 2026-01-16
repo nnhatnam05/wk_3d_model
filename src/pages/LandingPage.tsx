@@ -2,18 +2,25 @@ import Model3D from '../components/Model3D'
 import Header from '../components/Header'
 import BannerSection from '../components/BannerSection'
 import ImagesContainer from '../components/ImagesContainer'
+import MiniGameBanner from '../components/MiniGameBanner'
 import type { ModelConfig } from '../types/modelConfig'
+import { useMemo } from 'react'
 
 export default function LandingPage() {
   const modelPath = 'https://rus4iiektgqdbkz2.public.blob.vercel-storage.com/wukong.glb'
 
+  // Detect mobile device for responsive config
+  const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || (window.devicePixelRatio > 2 && window.innerWidth < 1024))
+
   // ============================================
   // MODEL CONFIGURATION - Tùy chỉnh tại đây
+  // Responsive: Tự động điều chỉnh cho mobile
   // ============================================
-  const modelConfig: ModelConfig = {
+  const modelConfig: ModelConfig = useMemo(() => ({
     // Vị trí xuất hiện của model [x, y, z]
     // Điều chỉnh Y để model không bị đẩy lên khi scroll
-    modelPosition: [0, -2.5, 2],
+    // Mobile: Điều chỉnh Y thấp hơn để model hiển thị tốt hơn
+    modelPosition: isMobile ? [0, -2.8, 2] : [0, -2.5, 2],
     
     // Góc xoay ban đầu của model [x, y, z] (radians)
     // Y rotation (quan trọng nhất): 
@@ -32,10 +39,12 @@ export default function LandingPage() {
      modelMaxHeight: 5, // Uncomment và set giá trị nếu muốn giới hạn chiều cao
     
     // Vị trí camera [x, y, z]
-    cameraPosition: [0, 1.4, 6.5],
+    // Mobile: Camera xa hơn và cao hơn để model hiển thị đầy đủ
+    cameraPosition: isMobile ? [0, 1.6, 7.5] : [0, 1.4, 6.5],
     
     // Góc nhìn camera (Field of View)
-    cameraFov: 50,
+    // Mobile: FOV lớn hơn để model không bị quá nhỏ
+    cameraFov: isMobile ? 60 : 50,
     
     // Điểm camera nhìn vào [x, y, z] (optional)
     cameraLookAt: undefined, // undefined = không set lookAt
@@ -50,10 +59,10 @@ export default function LandingPage() {
     // Di chuyển camera khi scroll - zoom xa ra vừa đủ, không quá nhiều để model không bị thu nhỏ
     cameraMovement: {
       enabled: true,
-      startY: 1.4, // Vị trí Y ban đầu của camera
-      endY: 0.5, // Vị trí Y cuối khi scroll (không quá thấp để model không bị đẩy lên)
-      startZ: 6.5, // Vị trí Z ban đầu (khoảng cách camera)
-      endZ: 8.5, // Vị trí Z cuối (zoom xa vừa đủ, không quá nhiều để model không bị thu nhỏ)
+      startY: isMobile ? 1.6 : 1.4, // Vị trí Y ban đầu của camera
+      endY: isMobile ? 0.6 : 0.5, // Vị trí Y cuối khi scroll (không quá thấp để model không bị đẩy lên)
+      startZ: isMobile ? 7.5 : 6.5, // Vị trí Z ban đầu (khoảng cách camera)
+      endZ: isMobile ? 9.5 : 8.5, // Vị trí Z cuối (zoom xa vừa đủ, không quá nhiều để model không bị thu nhỏ)
       trigger: 'body', // Element trigger (default: 'body')
     },
     
@@ -99,14 +108,14 @@ export default function LandingPage() {
       rotation: [4, 4, 0], // Góc nghiêng cố định - nghiêng lên 0.25 rad (≈14 độ)
       
       rotationSpeed: 0.1, // Tốc độ xoay (0.1 = chậm, 0.5 = nhanh)
-      particlesCount: 15000, // Số lượng hạt (15000 = mặc định, 30000 = nhiều hơn)
+      particlesCount: isMobile ? 8000 : 15000, // Số lượng hạt (Mobile: ít hơn để tối ưu performance)
       insideColor: '#ffff00', // Màu bên trong thiên hà
       outsideColor: '#ff4500', // Màu bên ngoài thiên hà
       galaxyRadius: 2, // Bán kính thiên hà (càng lớn càng rộng)
       branches: 10, // Số nhánh xoắn ốc (3-8)
       spin: 1.5, // Độ xoắn (1.0-3.0)
     },
-  }
+  }), [isMobile])
 
   return (
     <>
@@ -124,6 +133,9 @@ export default function LandingPage() {
         <BannerSection />
         <ImagesContainer />
       </main>
+
+      {/* Mini Game Banner - Fixed position */}
+      <MiniGameBanner />
     </>
   )
 }

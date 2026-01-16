@@ -24,7 +24,6 @@ export const Model = forwardRef<THREE.Group>((_props, _ref) => {
     const scale = TARGET_SIZE / maxDim
     internalRef.current.scale.setScalar(scale)
   
-    console.log('Auto scale applied:', scale)
   }, [scene])
   
 
